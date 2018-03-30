@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      tasks: [" Sacar la ropa", "Hacer la cama", "Leer un rato"]
+      tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"]
     };
   }
   render() {
