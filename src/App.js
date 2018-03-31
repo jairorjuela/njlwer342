@@ -4,43 +4,49 @@ import React, { Component } from 'react';
 
 class App extends Component {
 
-  constructor(props){
-    super(props);
+constructor() {
+    super();
     this.state = {
-      tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"]
+      tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"],
+      tarea: ""
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(event) {
+    this.setState({tarea: event.target.value});
+  }
+
+  handleSubmit(event) {
+    this.setState({
+      tasks: this.state.tasks.concat(this.state.tarea),
+      tarea: ""
+    });
+
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="wrapper">
         <div className="list">
           <h3>Por hacer:</h3>
           <ul className="todo">
-            {this.state.tasks.map(task => <li>{task}</li>)}
+            {this.state.tasks.map(task => <li key={task}>{task}</li>)}
           </ul>
-           <form onSubmit={this.addItem.bind(this)}>
-             <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" ref={(a) => this._inputElement = a} />
+           <form onSubmit={this.handleSubmit}>
+             <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" value={this.state.tarea} onChange={this.handleChange}/>
            </form>
         </div>
       </div>
     )
   }
 
-  addItem(e) {
-    if (this._inputElement.value !== "") {
-      var newItem = this._inputElement.value
-    };
-
-    this.setState({
-      tasks: this.state.tasks.concat(newItem)
-    });
-
-    this._inputElement.value = "";
-
-    e.preventDefault();
-  }
-
-
 }
 
-export default App;
+
+
+
+export default App
